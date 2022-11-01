@@ -34,6 +34,15 @@ class TableViewController: UIViewController, NetworkDelegate {
         }
     }
     
+    func passCellToDetailView (_ index: Int) {
+        let destVC = storyboard?.instantiateViewController(withIdentifier: "detailVC") as! DetailViewController
+        destVC.passedPostIDLabel = String(data[index].id)
+        destVC.passedNameLabel = data[index].name
+        destVC.passedEmailLabel = data[index].email
+        destVC.passedBodyLabel = data[index].body
+        present(destVC, animated: true)
+        
+    }
 }
 
 extension TableViewController: UITableViewDelegate, UITableViewDataSource {
@@ -49,5 +58,8 @@ extension TableViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //print(indexPath.row)
+        passCellToDetailView(indexPath.row)
+    }
 }
